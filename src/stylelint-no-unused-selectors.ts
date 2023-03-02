@@ -1,21 +1,21 @@
-import path from 'path';
 import { Undefinable } from 'option-t/lib/Undefinable';
-import { unwrapUndefinable } from 'option-t/lib/Undefinable/unwrap';
 import { andThenForUndefinable } from 'option-t/lib/Undefinable/andThen';
+import { unwrapUndefinable } from 'option-t/lib/Undefinable/unwrap';
+import path from 'path';
 
 import flatMap from 'array.prototype.flatmap';
 
+import { Result, Root } from 'postcss';
 import stylelint from 'stylelint';
-import { Root, Result } from 'postcss';
 // @ts-ignore
 import resolveNestedSelector from 'postcss-resolve-nested-selector';
 import createSelectorProcessor from 'postcss-selector-parser';
 
-import { Options, normaliseOptions } from './options';
+import { normaliseOptions, Options } from './options';
 import { getPlugin } from './plugin';
 
 import { DeepPartial } from './types/deep-partial';
-import { resolveDocuments, resolveDocument } from './utils/document-resolver';
+import { resolveDocument, resolveDocuments } from './utils/document-resolver';
 import { removeUnassertiveSelector } from './utils/remove-unassertive-selector';
 
 export const ruleName = 'plugin/no-unused-selectors';
@@ -56,7 +56,6 @@ function rule(
     if (!opts) {
       return;
     }
-
     const documentPaths = resolveDocuments(cssSrc, opts.resolve.documents);
     const resolution = await resolveDocument(documentPaths);
 
@@ -66,7 +65,6 @@ function rule(
 
     const { path: documentPath, document } = resolution;
     const pluginSet = await getPlugin(documentPath, opts.plugins);
-
     if (!pluginSet) {
       return;
     }
@@ -85,7 +83,6 @@ function rule(
           rule.selectors,
           (selectors): string[] => resolveNestedSelector(selectors, rule),
         );
-
         async function processSelector(selector: string): Promise<void> {
           const selectorAst = await selectorProcessor.ast(selector);
           const filteredAst = removeUnassertiveSelector(selectorAst);

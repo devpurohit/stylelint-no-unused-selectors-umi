@@ -1,15 +1,15 @@
 import * as BabelParser from '@babel/parser';
 import traverse from '@babel/traverse';
 import {
-  File,
-  Node,
-  JSXAttribute,
-  ImportDeclaration,
-  VariableDeclarator,
   CallExpression,
+  File,
   Identifier,
+  ImportDeclaration,
+  JSXAttribute,
+  Node,
   ObjectProperty,
   StringLiteral,
+  VariableDeclarator,
 } from '@babel/types';
 import { Undefinable } from 'option-t/lib/Undefinable';
 import { andThenForUndefinable } from 'option-t/lib/Undefinable/andThen';
@@ -177,6 +177,14 @@ function extractClassesAndIds(ast: File): { classes: string[]; ids: string[] } {
 
   function handleClassNames(node: Node): void {
     switch (node.type) {
+      case 'JSXExpressionContainer': {
+        if (node.expression.type == 'MemberExpression') {
+          if (node.expression.object.name == 'styles') {
+            classes.push(`.${node.expression.property.name}`);
+          }
+        }
+        break;
+      }
       case 'ImportDeclaration': {
         const declNode = node as ImportDeclaration;
         const specifiers = extractSpecifiersFromImport(

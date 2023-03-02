@@ -1,6 +1,6 @@
 import { Undefinable } from 'option-t/lib/Undefinable';
-import stylelint from 'stylelint';
 import { Result } from 'postcss';
+import stylelint from 'stylelint';
 
 import { DeepPartial } from './types/deep-partial';
 
@@ -29,37 +29,16 @@ const optionsSchema = {
 
 const defaultOptions: Options = {
   resolve: {
-    documents: [
-      '{cssDir}/{cssName}.tsx',
-      '{cssDir}/{cssName}.jsx',
-      '{cssDir}/{cssName}.html',
-      '{cssDir}/{cssName}.htm',
-      '{cssDir}/{cssDirName}.tsx',
-      '{cssDir}/{cssDirName}.jsx',
-      '{cssDir}/{cssDirName}.html',
-      '{cssDir}/{cssDirName}.htm',
-      '{cssDir}/index.tsx',
-      '{cssDir}/index.jsx',
-      '{cssDir}/index.html',
-      '{cssDir}/index.htm',
-    ],
+    documents: ['{cssDir}/{cssName}.js'],
   },
   plugins: [
     {
-      test: '\\.html?$',
-      plugin: 'stylelint-no-unused-selectors-plugin-html',
-    },
-    {
-      test: '\\.jsx?$',
+      test: '\\.js?$',
       plugin: 'stylelint-no-unused-selectors-plugin-jsx',
       options: {
         sourceType: 'module',
         plugins: ['jsx', 'flow'],
       },
-    },
-    {
-      test: '\\.tsx$',
-      plugin: 'stylelint-no-unused-selectors-plugin-tsx',
     },
   ],
 };

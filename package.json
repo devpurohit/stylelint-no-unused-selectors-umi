@@ -1,10 +1,10 @@
 {
-  "name": "stylelint-no-unused-selectors",
-  "version": "1.0.4",
-  "description": "A rule for stylelint to disallow unused selectors",
+  "name": "stylelint-no-unused-selectors-umi",
+  "version": "1.0.0",
+  "description": "A rule for stylelint to disallow unused selectors for UMI projects",
   "main": "dist/index.js",
-  "repository": "https://github.com/nodaguti/stylelint-no-unused-selectors",
-  "author": "nodaguti",
+  "repository": "https://github.com/devpurohit/stylelint-no-unused-selectors-umi",
+  "author": "devpurohit",
   "license": "MIT",
   "engines": {
     "node": ">=8.16.0"

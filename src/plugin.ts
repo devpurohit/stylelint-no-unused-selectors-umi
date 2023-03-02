@@ -1,5 +1,5 @@
-import path from 'path';
 import { Undefinable } from 'option-t/lib/Undefinable';
+import path from 'path';
 import PostcssSelectorParser from 'postcss-selector-parser';
 import { PluginSetting } from './options';
 
